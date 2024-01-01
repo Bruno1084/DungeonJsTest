@@ -1,29 +1,18 @@
-import { Actor, Color } from "excalibur";
+import { Actor } from 'excalibur';
 
-class Player extends Actor{
-  constructor({health, attack, weapon, x, y}){
-    super({ x, y, width: 50, height: 50, color: Color.DarkGray }),
-    this.health = health,
-    this.attack = attack,
-    this.weapon = weapon,
-    this.vel.x = 15
-  }
+export function createHero(){
+  const hero = new Actor({
+    name: 'Knight',
+    height: 16,
+    width: 16,
+    x: 10,
+    y: 10
+  })
 
-
-  setWeapon(weapon){
-    this.weapon = weapon;
-  }
-
-  setAttacked(attack){
-    this.health -= attack;
-  }
-
-  setHealth(health){
-    this.health+= health;
-  }
+  hero.vel.x = 15;
 
 
-  
+
+
+  return hero;
 }
-
-export { Player }

@@ -1,20 +1,14 @@
 import { Engine } from 'excalibur';
-import { Player } from './Player';
+import { createHero } from './Player';
+import { loader, heroSprite } from './resourses';
 
-const game = new Engine({
-  width: 600,
-  height: 600,
-});
+const game = new Engine();
 
-const hero = new Player({
-  health: 15,
-  attack: 2,
-  weapon: "sword",
-  x: 10,
-  y: 10
-});
-
-
+const hero = createHero();
+const sprite = heroSprite.toSprite();
+hero.graphics.use(sprite);
 
 game.add(hero);
-game.start();
+
+console.log(hero);
+game.start(loader);
