@@ -34,16 +34,16 @@ export class Hero extends Actor{
   }
 
   moveRight(){
-    this.pos.x+= 16;
+    this.actions.moveBy(vec(16, 0), 200);
   }
   moveLeft(){
-    this.pos.x -= 16;
+    this.actions.moveBy(vec(-16, 0), 200);
   }
   moveUp(){
-    this.pos.y -= 16;
+    this.actions.moveBy(vec(0, -16), 200);
   }
   moveDown(){
-    this.pos.y += 16;
+    this.actions.moveBy(vec(0,16), 200);
   }
 
   
