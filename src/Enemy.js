@@ -1,15 +1,20 @@
 import { Actor } from "excalibur";
+import { resourses } from "./resourses";
 
-const tilePos = 16 + 8;
+const tilePos = 8
 
-export class Enemy extends Actor(){
-  constructor(){
-    super({ height: 16, width: 16, x: 5 * tilePos, y: 5 * tilePos, z: 1});
+export class Enemy extends Actor{
+constructor({x, y}){
+    super({ height: 16, width: 16, x: x + tilePos, y: y + tilePos});
     this.health = 5;
     this.type = 'zombie';
   };
 
-  
+  onInitialize(){
+    const sprite = resourses.zombie.toSprite();
+    this.graphics.use(sprite);
+  }
+
 
 
 

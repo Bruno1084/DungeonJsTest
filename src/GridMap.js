@@ -1,6 +1,5 @@
-import { TileMap } from "excalibur";
+import { TileMap, Actor } from "excalibur";
 import { resourses } from "./resourses";
-
 
 class GridMap extends TileMap{
   constructor(){
@@ -15,9 +14,11 @@ class GridMap extends TileMap{
   onInitialize(){
     for (let cell of this.tiles) {
       let sprite;
+
       if(cell.x === 0){
         sprite = resourses.wall.toSprite();
-        cell.addGraphic(sprite)
+        cell.addGraphic(sprite);
+        cell.solid = true
       }else{
         sprite = resourses.floor.toSprite();
         cell.addGraphic(sprite);
@@ -25,7 +26,6 @@ class GridMap extends TileMap{
     }
   }
 
-  
 }
 
 export { GridMap }

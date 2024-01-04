@@ -1,11 +1,11 @@
-import { Actor, Keys, vec } from 'excalibur';
+import { Actor, Keys, vec, CollisionType } from 'excalibur';
 import { resourses } from './resourses';
 
 const tilePos = 16 + 8;
 
 export class Hero extends Actor{
   constructor(){
-    super({ height: 16, width: 16, x: 5 * tilePos, y: 5 * tilePos, z: 1});
+    super({ height: 16, width: 16, x: 5 * tilePos, y: 5 * tilePos, collisionType: CollisionType.Active});
     this.health = 15;
     this.attack = 5;
     this.type = 'knight';
@@ -35,6 +35,9 @@ export class Hero extends Actor{
 
   moveRight(){
     this.actions.moveBy(vec(16, 0), 200);
+    let playerTileX = Math.floor(this.pos.x / 16);
+    let playerTileY = Math.floor(this.pos.y / 16);
+    console.log(`El jugador está en la posición ${playerTileX}, ${playerTileY} en el gridmap.`);
   }
   moveLeft(){
     this.actions.moveBy(vec(-16, 0), 200);
