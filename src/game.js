@@ -1,14 +1,12 @@
-import { Camera, Engine, vec } from 'excalibur';
+import { Camera, Engine } from 'excalibur';
 import { loader } from './resourses';
 import { Hero } from './Player';
-import { Enemy } from './Enemy';
 import { GridMap } from './GridMap';
 
 
 const game = new Engine();
 
 const gridMap = new GridMap({x: 0, y: 0});
-// console.log(gridMap.getTileByPoint(vec(16, 16)))
 
 const hero = new Hero(gridMap, 1, 2);
 

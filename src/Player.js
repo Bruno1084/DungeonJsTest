@@ -33,7 +33,6 @@ export class Hero extends Actor{
             dir = Vector.Left;
             this.moveLeft();
           }
-          else{console.log('There is a wall at left')}
           break;
 
           case Keys.ArrowRight:
@@ -41,7 +40,6 @@ export class Hero extends Actor{
               dir = Vector.Right;
               this.moveRight()
             }
-            else{console.log('There is a wall at right')}
             break;
 
           case Keys.ArrowDown:
@@ -49,7 +47,6 @@ export class Hero extends Actor{
               dir = Vector.Down;
               this.moveDown();
             }
-            else{console.log('There is a wall below')}
             break;
 
           case Keys.ArrowUp:
@@ -57,7 +54,6 @@ export class Hero extends Actor{
               dir = Vector.Up;
               this.moveUp();
             }
-            else{console.log('There is a wall above')}
             break;
 
           default:
@@ -68,7 +64,7 @@ export class Hero extends Actor{
 
 
   moveRight(){
-    this.pos.x += 16;
+    this.actions.moveBy(vec(16, 0), 200);
   }
   moveLeft(){
     this.actions.moveBy(vec(-16, 0), 200);
