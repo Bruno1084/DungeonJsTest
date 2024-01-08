@@ -1,43 +1,74 @@
-import { Actor, Keys, vec, CollisionType } from 'excalibur';
+import { Actor, Keys, CollisionType, Vector, vec } from 'excalibur';
 import { resourses } from './resourses';
+import { GridMap } from './GridMap';
 
-const tilePos = 16 + 8;
 
 export class Hero extends Actor{
-  constructor(){
-    super({ height: 16, width: 16, x: 5 * tilePos, y: 5 * tilePos, collisionType: CollisionType.Active});
+  constructor(grid, tileX, tileY){
+    super({ 
+      height: 16, 
+      width: 16, 
+      x: grid.getTile(tileX, tileX).pos.x + 8, 
+      y: grid.getTile(tileY, tileY).pos.y + 8, 
+      collisionType: CollisionType.Active,
+      name: 'Knight'
+    });
+    this.grid = grid;
+    this.tileX = tileX;
+    this.tileY = tileY;
     this.health = 15;
     this.attack = 5;
-    this.type = 'knight';
     this.weapon = 'sword';
   };
 
-  update(engine){
-    super.update(engine);
-
-    if(engine.input.keyboard.wasPressed(Keys.ArrowDown))
-      this.moveDown()
-
-    if(engine.input.keyboard.wasPressed(Keys.ArrowUp))
-      this.moveUp()
-
-     if(engine.input.keyboard.wasPressed(Keys.ArrowLeft))
-      this.moveLeft()
-
-     if(engine.input.keyboard.wasPressed(Keys.ArrowRight))
-      this.moveRight()
-  }
-
-  onInitialize(){
+  onInitialize(engine){
     const sprite = resourses.hero.toSprite();
     this.graphics.use(sprite);
-  }
+
+    engine.input.keyboard.on('press', (evt) => {
+      let dir;
+      switch(evt.key){
+        case Keys.ArrowLeft:
+          if(!this.grid.getTileByPoint(vec(this.pos.x - 16, this.pos.y)).solid){
+            dir = Vector.Left;
+            this.moveLeft();
+          }
+          else{console.log('There is a wall at left')}
+          break;
+
+          case Keys.ArrowRight:
+            if(!this.grid.getTileByPoint(vec(this.pos.x + 16, this.pos.y)).solid){
+              dir = Vector.Right;
+              this.moveRight()
+            }
+            else{console.log('There is a wall at right')}
+            break;
+
+          case Keys.ArrowDown:
+            if(!this.grid.getTileByPoint(vec(this.pos.x, this.pos.y + 16)).solid){
+              dir = Vector.Down;
+              this.moveDown();
+            }
+            else{console.log('There is a wall below')}
+            break;
+
+          case Keys.ArrowUp:
+            if(!this.grid.getTileByPoint(vec(this.pos.x, this.pos.y - 16)).solid){
+              dir = Vector.Up;
+              this.moveUp();
+            }
+            else{console.log('There is a wall above')}
+            break;
+
+          default:
+            return;          
+      }
+    })
+  }  
+
 
   moveRight(){
-    this.actions.moveBy(vec(16, 0), 200);
-    let playerTileX = Math.floor(this.pos.x / 16);
-    let playerTileY = Math.floor(this.pos.y / 16);
-    console.log(`El jugador está en la posición ${playerTileX}, ${playerTileY} en el gridmap.`);
+    this.pos.x += 16;
   }
   moveLeft(){
     this.actions.moveBy(vec(-16, 0), 200);
@@ -48,6 +79,4 @@ export class Hero extends Actor{
   moveDown(){
     this.actions.moveBy(vec(0,16), 200);
   }
-
-  
 }
